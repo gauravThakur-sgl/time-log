@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { Calendar } from "./ui/calendar";
 import Card from "./ui/Card";
-import { se } from "date-fns/locale";
-import { HeadRow } from "react-day-picker";
 
 export const Log = () => {
   const [punchData, setPunchData] = useState<any[]>([]);
