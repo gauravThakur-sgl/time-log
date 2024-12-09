@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Errors from "./ui/Errors";
 export const MarkTime = () => {
   const [netTime, setNetTime] = useState<number>(0);
-  const [totalTime, setTotalTime] = useState<{time:number, date: string}[]>([]);
+  const [totalTime, setTotalTime] = useState<{ time: number; date: string }[]>([]);
   const [error, setIsError] = useState(false);
   const [punchInDisabled, setPunchInDisabled] = useState<boolean>();
   const [punchOutDisabled, setPunchOutDisabled] = useState<boolean>();
@@ -12,6 +12,8 @@ export const MarkTime = () => {
     const storedData = localStorage.getItem("punchData");
     return storedData ? JSON.parse(storedData) : [];
   });
+
+  
   useEffect(() => {
     const storedButtonData = localStorage.getItem("buttonPunchInData");
     const storedButtonData1 = localStorage.getItem("buttonPunchOutData");

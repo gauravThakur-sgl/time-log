@@ -1,24 +1,36 @@
 import { useEffect, useState } from "react";
 import { Calendar } from "./ui/calendar";
 import Card from "./ui/Card";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export const Log = () => {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
   const [punchData, setPunchData] = useState<any[]>([]);
-  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+  const [selectedDate, setSelectedDate] = useState<Date>(() => {
+    const dateData = queryParams.get("date");
+    return dateData ? new Date(dateData) : new Date();
+  });
   const [totalTime, setTotalTime] = useState<{ time: number; date: string }[]>(() => {
     const data = JSON.parse(localStorage.getItem("totalTime") || "[]");
     return data;
   });
+
   useEffect(() => {
     const punchData = JSON.parse(localStorage.getItem("punchData") || "[]");
     const newTotalTime = JSON.parse(localStorage.getItem("totalTime") || "[]");
     setPunchData(punchData);
     setTotalTime(newTotalTime);
   }, []);
+
   console.log(punchData, "punchDatahaa");
   // console.log(punchData[punchData.length - 1].time, "totalTime");
   const handleOnChange = (date: Date) => {
     setSelectedDate(date);
+    const searchParams = new URLSearchParams(location.search);
+    searchParams.set("date", date.toISOString().split("T")[0]);
+    // navigate(`/timelog?date=${date.toISOString()}`);
+    window.history.replaceState({}, "", `${location.pathname}?${searchParams.toString()}`);
   };
   const filteredPunchData = punchData.filter(
     (log) => new Date(log.time).toDateString() === selectedDate.toDateString(),
