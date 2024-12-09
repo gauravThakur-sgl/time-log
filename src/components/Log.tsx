@@ -15,7 +15,7 @@ export const Log = () => {
     const data = JSON.parse(localStorage.getItem("totalTime") || "[]");
     return data;
   });
-
+  const navigate = useNavigate();
   useEffect(() => {
     const punchData = JSON.parse(localStorage.getItem("punchData") || "[]");
     const newTotalTime = JSON.parse(localStorage.getItem("totalTime") || "[]");
@@ -29,8 +29,7 @@ export const Log = () => {
     setSelectedDate(date);
     const searchParams = new URLSearchParams(location.search);
     searchParams.set("date", date.toISOString().split("T")[0]);
-    // navigate(`/timelog?date=${date.toISOString()}`);
-    window.history.replaceState({}, "", `${location.pathname}?${searchParams.toString()}`);
+    navigate(location.pathname)
   };
   const filteredPunchData = punchData.filter(
     (log) => new Date(log.time).toDateString() === selectedDate.toDateString(),
