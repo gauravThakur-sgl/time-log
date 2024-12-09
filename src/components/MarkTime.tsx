@@ -2,8 +2,6 @@ import Button from "./ui/personal/Button";
 import Card from "./ui/Card";
 import { useState, useEffect } from "react";
 import Errors from "./ui/Errors";
-import "react-calendar/dist/Calendar.css";
-
 export const MarkTime = () => {
   const [netTime, setNetTime] = useState<number>(0);
   const [totalTime, setTotalTime] = useState<{time:number, date: string}[]>([]);
