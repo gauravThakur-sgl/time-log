@@ -1,5 +1,5 @@
 import { MarkTime } from "./pages/MarkTime";
-import { BrowserRouter, Link, Route, Router, Routes } from "react-router-dom";
+import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import { Calendar, Clock, House } from "lucide-react";
 import { Root } from "./routes/Root";
 import { Log } from "./pages/Log";
