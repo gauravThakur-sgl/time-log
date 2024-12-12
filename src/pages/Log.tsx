@@ -55,9 +55,11 @@ export const Log = () => {
   // Handling the click event
   const handleOnClick = (date: Date) => {
     setShowLogData(!showLogData);
-    const newDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    const newDate = new Date(date.toLocaleDateString());
+    newDate.setDate(newDate.getDate() + 1);
     navigate(`/timelog?date=${splitLogic(newDate)}`);
   };
+
   console.log(selectedDate, "selectedDate");
   // Filtering the data based on the selected date
   const filteredPunchData = punchData.filter((log) => {
@@ -70,6 +72,7 @@ export const Log = () => {
   const punchDates = punchData.map((data) => new Date(data.time).toDateString());
   const lastLog = filteredPunchData[filteredPunchData.length - 1];
 
+  console.log(lastLog, "lastLog");
   return (
     <div className="flex justify-center bg-gradient-to-b from-purple-200 to-blue-100 h-screen">
       <div className="">
@@ -110,14 +113,14 @@ export const Log = () => {
           <div>
             {filteredTime.map((data, index) => (
               <div key={index}>
-                {index === totalTime.length - 1 ? (
+                {index === totalTime.length - 1 && (
                   <Card className="flex justify-around items-center mt-5 border p-2 rounded-md text-sm font-medium text-purple-500 border-purple-500 bg-purple-50">
                     <div>Total Time:</div>
                     {`${Math.floor(data.time / 3600)} hours ${Math.floor((data.time % 3600) / 60)} minutes ${(
                       data.time % 60
                     ).toFixed(0)} seconds`}
                   </Card>
-                ) : null}
+                )}
               </div>
             ))}
           </div>

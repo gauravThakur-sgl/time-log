@@ -17,8 +17,7 @@ interface IPunchData {
 export const MarkTime = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const dateParam = queryParams.get("date");
-  const selectedDate = dateParam ? new Date(dateParam + "T00:00:00") : new Date();
+  const selectedDate = new Date(queryParams.get("date") || new Date().toISOString().split("T")[0]);
 
   const [netTime, setNetTime] = useState<number>(0);
   const [error, setIsError] = useState(false);
@@ -91,13 +90,13 @@ export const MarkTime = () => {
         setPunchData(newPunchOutData);
         localStorage.setItem("punchData", JSON.stringify(newPunchOutData));
         const newNetTime = (punchOutTime - punchInTime) / 1000 + netTime;
-        setNetTime(newNetTime);
+        setNetTime(newNetTime); // time in seconds
         localStorage.setItem("netTime", JSON.stringify(newNetTime));
         const newTotalTime = [
           ...totalTime,
           {
             time: newNetTime,
-            date: new Date().toISOString().split("T")[0],
+            date: new Date().toDateString(),
           },
         ];
         setTotalTime(newTotalTime);
@@ -127,11 +126,11 @@ export const MarkTime = () => {
   return (
     <>
       <div className="flex flex-col items-center h-screen w-full p-4 pt-11 bg-gradient-to-b from-purple-200 to-blue-100">
-        <div className="text-sm font-semibold text-gray-800 rounded-md px-2 shadow-sm bg-gradient-to-r from-purple-200 to-blue-100">
-          Date: <span>{selectedDate.toDateString()}</span>
-        </div>
         <h1 className="text-4xl font-bold text-gray-800 m-4">Time Log</h1>
         <Card className="relative flex flex-col items-center h-full mb-11 min-w-80 max-w-96 py-4 px-8 gap-2 bg-gray-50 shadow-sm overflow-auto">
+          <div className="text-sm font-semibold text-gray-800 rounded-md px-2 shadow-sm bg-gradient-to-r from-purple-200 to-blue-100">
+            Date: <span>{selectedDate.toDateString()}</span>
+          </div>
           <div className="text-sm font-semibold text-primary text-center contrast-200 sticky top-0">
             <div>Total time elapsed</div>
             {`${Math.floor(totalPunchTime / 3600)} hours ${Math.floor((totalPunchTime % 3600) / 60)} minutes ${(
