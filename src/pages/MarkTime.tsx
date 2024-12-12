@@ -36,6 +36,12 @@ export const MarkTime = () => {
     const storedData = localStorage.getItem("punchData");
     return storedData ? JSON.parse(storedData) : [];
   };
+
+  const isToday = (date: Date): boolean => {
+    const today = new Date();
+    return date.toDateString() === today.toDateString();
+  };
+  console.log(isToday(selectedDate), "Today Date");
   const [totalTime, setTotalTime] = useState<ITime[]>(getTotalTime); // total time
   const [isPunchedIn, setIsPunchedIn] = useState<boolean>(getButtonPunchData); // button punch data
   const [punchData, setPunchData] = useState<IPunchData[]>(getPunchData); // punch data
@@ -137,8 +143,12 @@ export const MarkTime = () => {
               totalPunchTime % 60
             ).toFixed(0)} seconds`}
           </div>
-          <PunchButton title="Punch In" disabled={isPunchedIn} onClick={handlePunchIn} />
-          <PunchButton title="Punch Out" disabled={!isPunchedIn} onClick={handlePunchOut} />
+
+          <div className={`${isToday(selectedDate) ? "block" : "hidden"} w-full`}>
+            <PunchButton title="Punch In" disabled={isPunchedIn} onClick={handlePunchIn} />
+            <PunchButton title="Punch Out" disabled={!isPunchedIn} onClick={handlePunchOut} />
+          </div>
+
           <Errors
             name={error}
             errorDescription="Punch Out must be 2 minutes after Punch In"

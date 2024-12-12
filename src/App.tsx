@@ -7,7 +7,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <div className="flex justify-center items-center fixed bottom-0 w-full">
+        <div className="flex justify-center items-center fixed bottom-0 z-20 w-full">
           <ul className="flex justify-between md:justify-center items-center bg-white gap-6 p-2 px-4 w-full">
             <MenuLink name="Home" route="/" iconName={<House className="w-5 h-5 text-gray-400" />} />
             <MenuLink name="Log" route="login" iconName={<Calendar className="w-5 h-5 text-gray-400" />} />
