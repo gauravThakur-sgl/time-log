@@ -31,7 +31,7 @@ export const Log = () => {
 
   const getPunchData = JSON.parse(localStorage.getItem("punchData") || "[]");
   const getTime = JSON.parse(localStorage.getItem("totalTime") || "[]");
-  
+
   // Fetching data from local storage
   useEffect(() => {
     const punchData = getPunchData;
@@ -55,8 +55,7 @@ export const Log = () => {
   // Handling the click event
   const handleOnClick = (date: Date) => {
     setShowLogData(!showLogData);
-    const newDate = new Date(date.toLocaleDateString());
-    newDate.setDate(newDate.getDate() + 1);
+    const newDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1);
     navigate(`/timelog?date=${splitLogic(newDate)}`);
   };
   console.log(selectedDate, "selectedDate");
