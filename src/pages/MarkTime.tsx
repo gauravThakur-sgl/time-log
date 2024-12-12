@@ -5,7 +5,6 @@ import { useLocation } from "react-router-dom";
 import { PunchButton } from "@/components/PunchButton";
 import { RenderCards } from "@/components/RenderCards";
 
-
 interface ITime {
   time: number;
   date: string;
@@ -127,6 +126,9 @@ export const MarkTime = () => {
   return (
     <>
       <div className="flex flex-col items-center h-screen w-full p-4 pt-11 bg-gradient-to-b from-purple-200 to-blue-100">
+        <div className="text-sm font-semibold text-gray-800 rounded-md px-2 shadow-sm bg-gradient-to-r from-purple-200 to-blue-100">
+          Date: <span>{selectedDate.toDateString()}</span>
+        </div>
         <h1 className="text-4xl font-bold text-gray-800 m-4">Time Log</h1>
         <Card className="relative flex flex-col items-center h-full mb-11 min-w-80 max-w-96 py-4 px-8 gap-2 bg-gray-50 shadow-sm overflow-auto">
           <div className="text-sm font-semibold text-primary text-center contrast-200 sticky top-0">
