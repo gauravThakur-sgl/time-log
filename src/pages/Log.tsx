@@ -57,8 +57,6 @@ export const Log = () => {
     setShowLogData(!showLogData);
     const newDate = new Date(date.toLocaleDateString());
     newDate.setDate(newDate.getDate() + 1);
-    const searchParams = new URLSearchParams(location.search);
-    searchParams.set("date", splitLogic(date));
     navigate(`/timelog?date=${splitLogic(newDate)}`);
   };
   console.log(selectedDate, "selectedDate");
