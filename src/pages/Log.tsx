@@ -55,7 +55,7 @@ export const Log = () => {
   // Handling the click event
   const handleOnClick = (date: Date) => {
     setShowLogData(!showLogData);
-    const newDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1);
+    const newDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
     navigate(`/timelog?date=${splitLogic(newDate)}`);
   };
   console.log(selectedDate, "selectedDate");

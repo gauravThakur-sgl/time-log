@@ -17,7 +17,8 @@ interface IPunchData {
 export const MarkTime = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const selectedDate = new Date(queryParams.get("date") || new Date().toISOString().split("T")[0]);
+  const dateParam = queryParams.get("date");
+  const selectedDate = dateParam ? new Date(dateParam + "T00:00:00") : new Date();
 
   const [netTime, setNetTime] = useState<number>(0);
   const [error, setIsError] = useState(false);
@@ -90,13 +91,13 @@ export const MarkTime = () => {
         setPunchData(newPunchOutData);
         localStorage.setItem("punchData", JSON.stringify(newPunchOutData));
         const newNetTime = (punchOutTime - punchInTime) / 1000 + netTime;
-        setNetTime(newNetTime); // time in seconds
+        setNetTime(newNetTime);
         localStorage.setItem("netTime", JSON.stringify(newNetTime));
         const newTotalTime = [
           ...totalTime,
           {
             time: newNetTime,
-            date: new Date().toDateString(),
+            date: new Date().toISOString().split("T")[0],
           },
         ];
         setTotalTime(newTotalTime);
